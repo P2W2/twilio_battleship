@@ -8,10 +8,10 @@ It is based on the Twilio Tutorial: [Receive and Reply to SMS and MMS Messages i
 Make a Twilio Account and get a [number](https://www.twilio.com/console/phone-numbers/search).\
 Deploy the docker container or the Flask app on your server.\
 Start the Flask app via:\
-```python3 server.py ```\
+```python3 server.py <HOST> <PORT>```\
 OR\
 Start the Docker container via:\
-```docker run battleship```
+```docker run battleship <HOST> <PORT>```
 
 Next, configure Your Webhook URL:
 1. Log into Twilio.com and go to the  [Console's Numbers page](https://www.twilio.com/console/phone-numbers/incoming)
