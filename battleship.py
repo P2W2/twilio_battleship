@@ -19,16 +19,19 @@ class Battleship:
         }
 
     def turn(self, number, coordinates):
+        #Create a new Game
         if number not in self.players.keys():
             self.players[number] = {'p_ships': self.create_board(), 'p_shots': [], 'c_ships': self.create_board(),
                                     'c_shots': []}
         coordinates = coordinates.split(', ')
         return self.shot(number, (self.lon[coordinates[0].lower()], int(coordinates[1]) - 1))
 
+    #Function to resolve the events of a shot
     def shot(self, number, coordinates):
         if coordinates in self.players[number]['p_shots']:
             return 'You did that shot already'
 
+        #player shot
         self.players[number]['p_shots'].append(coordinates)
 
         if all(item in self.players[number]['p_shots'] for item in self.players[number]['c_ships']):
@@ -36,12 +39,14 @@ class Battleship:
             self.players.pop(number)
             return 'congrats you won: \n' + self.stringify_board(c_board) + '\n' + self.stringify_board(p_board)
 
+        #computer shoots
         c_shot = self.c_shoots(number)
         self.players[number]['c_shots'].append(c_shot)
         c_board, p_board = self.get_boards(self.players[number])
 
         if all(item in self.players[number]['c_shots'] for item in self.players[number]['p_ships']):
             return 'Sorry you lost that game: \n' + self.stringify_board(c_board) + '\n' + self.stringify_board(p_board)
+
         msg = ''
         if coordinates in self.players[number]['c_ships']:
             msg += 'Nice shot! You hit a ship on ' + list(self.lon.keys())[
@@ -59,6 +64,7 @@ class Battleship:
 
         return msg + '\n' + self.stringify_board(p_board)
 
+    #computer shoots
     def c_shoots(self, number):
         shot = (random.randint(0, 4), random.randint(0, 4))
         if shot in self.players[number]['c_shots']:
@@ -78,6 +84,7 @@ class Battleship:
             self.set_ship(1, ships)
         return ships
 
+    #sets a ship to random empty position
     def set_ship(self, fields, ships):
         vertical = random.randint(0, 1)
         if vertical:
@@ -95,6 +102,7 @@ class Battleship:
 
         ships.extend(ship)
 
+    # Retruns the boards as array
     def get_boards(self, player):
         p_board = [
             ['', '', '', '', ''],
@@ -117,6 +125,7 @@ class Battleship:
             c_board[ship[0]][ship[1]] += 'O'
         return c_board, p_board
 
+    #returns a string of the board
     def stringify_board(self, board):
         s = ''
         for row in board:
@@ -124,6 +133,3 @@ class Battleship:
                 s += ' [' + field + ']'
             s += '\n'
         return s
-
-    def get_game(self, num1, num2):
-        self.games.get()
