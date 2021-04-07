@@ -11,7 +11,7 @@ Start the Flask app via:\
 ```python3 server.py <HOST> <PORT>```\
 OR\
 Start the Docker container via:\
-```docker build -t battleship .```
+```docker build -t battleship .```\
 ```docker run battleship <HOST> <PORT>```
 
 Next, configure Your Webhook URL:
